@@ -11,13 +11,17 @@ import Testing
 class Day2 {
     let input = FileLoader.prodData(day: 2)
 
-    @Test
-    func reactorReports() {
-        let result = input.split("\n")
+    var reports: [[Int]] {
+        input.split("\n")
             .filter { !$0.isEmpty }
             .map {
                 $0.split(" ").compactMap{ $0.decimal }
             }
+    }
+
+    @Test
+    func reactorReports() {
+        let result = reports
             .map { list in
                 list.enumerated()
                 .compactMap { (offset, element) -> Int? in
@@ -47,9 +51,7 @@ class Day2 {
             }
             return diff.allSatisfy { (1...3).contains(abs($0)) } && (diff.allSatisfy { $0 > 0} || diff.allSatisfy { $0 < 0})
         }
-        let result = input.split("\n")
-            .filter { !$0.isEmpty }
-            .map { $0.split(" ").compactMap{ $0.decimal } }
+        let result = reports
             .filter { list in
                 if isReportSafe(list) {
                     return true

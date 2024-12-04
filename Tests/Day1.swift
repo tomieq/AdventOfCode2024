@@ -11,8 +11,7 @@ import Testing
 class Day1 {
     let input = FileLoader.prodData(day: 1)
     
-    @Test
-    func twoLists() {
+    func makeLists() -> (left: [Int], right: [Int]) {
         var leftList: [Int] = []
         var rightList: [Int] = []
         input.split("\n")
@@ -22,6 +21,12 @@ class Day1 {
                 leftList.append(parts.0.decimal)
                 rightList.append(parts.1.decimal)
             }
+        return (leftList, rightList)
+    }
+    
+    @Test
+    func twoLists() {
+        var (leftList, rightList) = makeLists()
         leftList.sort()
         rightList.sort()
         let result = leftList.enumerated()
@@ -33,16 +38,7 @@ class Day1 {
     
     @Test
     func twoListsFixed() {
-        var leftList: [Int] = []
-        var rightList: [Int] = []
-        input.split("\n")
-            .filter { !$0.isEmpty }
-            .forEach {
-                let parts = $0.split("   ").tuple
-                leftList.append(parts.0.decimal)
-                rightList.append(parts.1.decimal)
-            }
-        
+        let (leftList, rightList) = makeLists()
         let result = leftList.map { number in
             rightList.count{ $0 == number} * number
         }.reduce(0, +)
