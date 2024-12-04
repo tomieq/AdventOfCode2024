@@ -51,8 +51,7 @@ extension Array {
     // cuts array into equal subarrays
     func cut(into parts: Int) -> [[Element]] {
         guard self.count % parts == 0 else {
-            Logger.e("Array.cut", "Cannot cut array into \(parts) subarrays as the array length is not dividable by \(parts)")
-            return [self]
+            fatalError("Cannot cut array into \(parts) subarrays as the array length is not dividable by \(parts)")
         }
         return self.chunked(by: self.count / parts)
     }
@@ -89,27 +88,6 @@ extension Array {
 
     func subArray(_ range: PartialRangeUpTo<Int>) -> [Element] {
         Array(self[range])
-    }
-}
-
-extension Array {
-    func count(match: (Element) -> Bool) -> Int {
-        var count: Int = 0
-        for x in self {
-            if match(x) {
-                count = count + 1
-            }
-        }
-        return count
-    }
-
-    func contains(match: (Element) -> Bool) -> Bool {
-        for x in self {
-            if match(x) {
-                return true
-            }
-        }
-        return false
     }
 }
 
@@ -224,11 +202,11 @@ extension Array where Element == String {
         guard let elem = elem else {
             return
         }
-        self.append("\(elem)")
+        self.append(elem.string)
     }
 
     mutating func append(_ elem: Character) {
-        self.append("\(elem)")
+        self.append(elem.string)
     }
 }
 
