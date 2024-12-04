@@ -1,11 +1,20 @@
 //
-//  MapPoint.swift
+//  PointMap.swift
 //  AdventOfCode2024
 //
 //  Created by Tomasz on 04/12/2024.
 //
 
-class MapPoint {
+/*
+ 0,0
+   ______> x
+  |
+  |
+
+  y
+  */
+
+class PointMap {
     var content: [Point: String] = [:]
     
     init(input: String) {
